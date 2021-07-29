@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>House Price Prediction</title>
+    <link rel="stylesheet" type="text/css" href="./static/mycss.css", media="screen,projection"/>
+    <link rel="stylesheet" type="text/css" href="./static/mycss2.css", media="screen,projection"/>
+    <link rel="stylesheet" href="../static/mycss.css">
+    <link rel="stylesheet" href="../static/mycss2.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../static/js/ol3-3.11.0/ol.js"></script>
+    <script type="text/javascript" src="../static/main.js"></script>
+    <link href="../static/js/ol3-3.11.0/ol.css" rel="stylesheet">
+   
+</head>
+<body>
+<div id="body">
+            <div class='background'>
+                <div class="text1">
+                    <h1>Makine öğrenmesi ile yapay zeka algoritmaları kullanılarak geliştirilen bu sitede hayalinizdeki evin fiyatını hesaplayın!</h1>
+                    <p id=header></p>
+                </div>
+            </div>
+    
+
+                
+   
+    <div id="rc"></div>
+    
+    <div id="map" class="map" style="width:57%; height:80%; margin-left: 5px; margin-top: 15px; float: left;"></div>
+        <div class=form style="width:40%; height:40%; margin-right: 5px; margin-top: 15px; float: right;">
+      
+        
+        <form action="/predict" method="post">
+            <label class='select_label'>Hangi cepheyi tercih edersiniz? </label>
+            <Select id='IUDir' name='IUDir'>
+            <option value='1'>Güneybatı</option>
+             <option selected value="2" >Güneydoğu</option>
+                <option selected value="3" >Güney</option>
+                <option selected value="4" >Kuzeydoğu</option>
+                <option selected value="5" >Doğu</option>
+                <option selected value="6" >Kuzeybatı</option>
+                <option selected value="7" >Batı</option>
+                <option selected value="8" >Kuzey</option>
+            </Select><br>
+            <label>En yakın okula mesafe (metre):</label><br>
+            <input type="number" placeholder="Haritadan konum seçebilir veya istediğiniz mesafeyi girebilirsiniz." id='DisColl' name='DisColl'><br>
+            <label class='select_label'>Balkon ister misiniz? </label>
+            <Select id='IUBalc' name='IUBalc'>
+            <option value='2'>Evet</option>
+             <option selected value="1" >Hayır</option>
+            </Select><br>
+            <label class='select_label'>Aracınız için kapalı garaj ister misiniz? </label>
+            <Select id='Garage' name='Garage'>
+            <option value='1'>Evet</option>
+             <option selected value="2" >Hayır</option>
+            </Select><br>
+            <label>Bina yaşı (yıl):</label><br>
+            <input type="number" placeholder="Bina yaşı giriniz." id='BYEAR' name='BYEAR'><br>
+            <label>Tercih ettiğiniz oda sayısı(Tercihiniz 3+1 ise 4 şeklinde giriniz):</label><br>
+            <input type="number" placeholder="Oda sayısı giriniz." id='NROOMS' name='NROOMS'><br>
+            <label>Tercih ettiğiniz banyo sayısı:</label><br>
+            <input type="number" placeholder="Banyo sayısı giriniz." id='NBATH' name='NBATH'><br>
+            <label>En yakın hastaneye mesafe (metre):</label><br>
+            <input type="number" placeholder="Haritadan konum seçebilir veya istediğiniz mesafeyi girebilirsiniz." id='DisHos' name='DisHos'><br>
+            <label>En yakın AVM'ye mesafe (metre):</label><br>
+            <input type="number" placeholder="Haritadan konum seçebilir veya istediğiniz mesafeyi girebilirsiniz." id='DisMall' name='DisMall'><br>
+            <label>En yakın metro durağına mesafe (metre):</label><br>
+            <input type="number" placeholder="Haritadan konum seçebilir veya istediğiniz mesafeyi girebilirsiniz." id='DisMetro' name='DisMetro'><br>
+            <label>Dairenin kaçıncı katta olmasını istersiniz :</label><br>
+            <input type="number" placeholder="Kat numarası giriniz." id='FlrLoc' name='FlrLoc'><br>
+            <label class='select_label'>Asansör ister misiniz? </label>
+             <Select id='Elav' name='Elav'>
+            <option value='1'>Evet</option>
+             <option selected value="2" >Hayır</option>
+            </Select><br>
+            <label class='select_label'>Evinizi site içerisinde mi istersiniz? </label>
+                <Select id='Complex' name='Complex'>
+            <option value='1'>Evet</option>
+             <option selected value="2" >Hayır</option>
+                </Select><br>
+                <label>Evin alanı:</label>
+            <input type="number" placeholder="Metrekare olarak giriniz." id='IUM²' name='IUM²'><br>
+                </Select><br>
+                <button id=submitbtn type="submit" value="submit">Fiyatı Hesaplayın</button><br>
+           </form>
+
+           <div id='fiyat'>
+            <p>Algoritmanın doğruluk oranı %80 olduğundan evin fiyatı üretilen fiyat ile..... olacaktır. </p>
+          </div>
+      </div>
+
+      <div id='konumiste'>
+        <p> Haritada tanımlı bölge içerisinden istediğiniz konumu tıklayarak seçebilirsiniz.</p>
+       </div>
+      <div class="fixed">
+        <span class="dot1"></span> Metro Durağı
+        <span class="dot2"></span> Okullar
+        <span class="dot3"></span> Hastaneler
+        <span class="dot4"></span> AVM
+    </div>
+    <div id=sonuc>
+        <p> {{pred}} </p>
+       </div>
+</div>
+
+
+</body>
+    
+    
+</html>
